@@ -29,17 +29,28 @@
 
 ---
 
-## 📂 프로젝트 구조 (Architecture)
+## 📂 프로젝트 구조 & MVC 아키텍처 (Architecture)
+본 프로젝트는 **MVC 패턴**을 기반으로 관심사를 분리하여 유지보수성과 확장성을 높였습니다.
 
 
+
+### 🏗 Layered Structure
+| Layer | Location | Description |
+| :--- | :--- | :--- |
+| **View** | `client/src/views` | 사용자 인터페이스(UI). React 컴포넌트를 통해 데이터 시각화 |
+| **Controller** | `server/controllers` & `client/src/controllers` | 비즈니스 로직 제어 및 클라이언트-서버 간 데이터 흐름 중개 |
+| **Model** | `server/models` | 데이터베이스(SQLite)와 직접 소통하며 데이터 구조 정의 및 쿼리 실행 |
+
+### 📂 Directory Tree
 ```text
 SignUpProject/
-├── client/ (React)
-│   ├── src/
-│   │   ├── controllers/  # 비즈니스 로직 (Hooks)
-│   │   ├── views/        # UI 컴포넌트
-│   │   └── api/          # 서버 통신 (Fetch/Axios)
-└── server/ (Node.js)
-    ├── controllers/      # API 요청 처리
-    ├── models/           # DB 쿼리 실행
-    └── database.db       # SQLite 데이터 파일
+├── 🌐 client/ (Frontend - View & Logic)
+│   └── src/
+│       ├── views/        # [View] UI Components (회원가입/로그인/마이페이지 화면)
+│       ├── controllers/  # [Logic] Custom Hooks (상태 관리 및 핸들러 로직)
+│       └── api/          # Server Communication (Port 8000 API 호출)
+│
+└── ⚙️ server/ (Backend - Controller & Model)
+    ├── controllers/      # [Controller] HTTP 요청 해석 및 Model 호출
+    ├── models/           # [Model] Database(SQLite) CRUD 쿼리 수행
+    └── database.db       # [Storage] 실제 데이터 저장소

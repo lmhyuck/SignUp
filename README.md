@@ -30,7 +30,7 @@
 ---
 
 ## 📂 프로젝트 구조 & MVC 아키텍처 (Architecture)
-본 프로젝트는 **MVC 패턴**을 기반으로 관심사를 분리하여 유지보수성과 확장성을 높였습니다.
+본 프로젝트는 **MVC 패턴**을 기반으로 구조화되었으며, **Routing** 계층을 통해 클라이언트의 요청을 효율적으로 관리합니다.
 
 
 
@@ -38,19 +38,21 @@
 | Layer | Location | Description |
 | :--- | :--- | :--- |
 | **View** | `client/src/views` | 사용자 인터페이스(UI). React 컴포넌트를 통해 데이터 시각화 |
-| **Controller** | `server/controllers` & `client/src/controllers` | 비즈니스 로직 제어 및 클라이언트-서버 간 데이터 흐름 중개 |
-| **Model** | `server/models` | 데이터베이스(SQLite)와 직접 소통하며 데이터 구조 정의 및 쿼리 실행 |
+| **Route** | `server/routes` | 클라이언트의 요청(URL)을 받아 적절한 Controller로 매핑(전달) |
+| **Controller** | `server/controllers` | 비즈니스 로직 제어 및 Model과 View(Response) 사이의 중개 |
+| **Model** | `server/models` | 데이터베이스(SQLite)와 직접 소통하며 데이터 CRUD 쿼리 실행 |
 
 ### 📂 Directory Tree
 ```text
 SignUpProject/
-├── 🌐 client/ (Frontend - View & Logic)
+├── 🌐 client/ (Frontend - View)
 │   └── src/
-│       ├── views/        # [View] UI Components (회원가입/로그인/마이페이지 화면)
-│       ├── controllers/  # [Logic] Custom Hooks (상태 관리 및 핸들러 로직)
-│       └── api/          # Server Communication (Port 8000 API 호출)
+│       ├── views/        # [View] UI Components (회원가입/로그인/마이페이지)
+│       ├── controllers/  # [Logic] Custom Hooks (상태 관리 및 핸들러)
+│       └── api/          # Server Communication (Port 8000 호출)
 │
-└── ⚙️ server/ (Backend - Controller & Model)
-    ├── controllers/      # [Controller] HTTP 요청 해석 및 Model 호출
-    ├── models/           # [Model] Database(SQLite) CRUD 쿼리 수행
-    └── database.db       # [Storage] 실제 데이터 저장소
+└── ⚙️ server/ (Backend - Route, Controller, Model)
+    ├── routes/           # [Route] 엔드포인트 관리 및 API 경로 정의
+    ├── controllers/      # [Controller] 요청 해석 및 비즈니스 로직 수행
+    ├── models/           # [Model] Database(SQLite) 쿼리 수행
+    └── database.db       # [Storage] 데이터 저장소
